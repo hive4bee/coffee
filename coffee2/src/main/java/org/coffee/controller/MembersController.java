@@ -17,6 +17,7 @@ import org.coffee.domain.Imsi2VO;
 import org.coffee.domain.MembersDTO;
 import org.coffee.service.MembersServiceImpl;
 import org.coffee.service.ProductsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,12 @@ public class MembersController {
 	
 	private ProductsService productsService;
 	
+	@Value("#{emailInfo['email.username']}")
+	private String emailUsername;
+	
+	@Value("${emailInfo['email.password']}")
+	private String emailPassword;
+	
 	@GetMapping("/index")
 	public void index() {
 		
@@ -60,8 +67,8 @@ public class MembersController {
 		//service.register(dto);
 		//return "redirect:/";
 		String host = "smtp.naver.com";
-		final String user="eprot@naver.com";
-		final String password="Ythfeb94!#";
+		final String user=emailUsername;
+		final String password=emailPassword;
 		
 		String to_email = dto.getMemail();
 		
