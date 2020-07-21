@@ -143,6 +143,9 @@
   		}
   	}
   	$(document).ready(function(){
+  	  	var id='<c:out value="${id}"/>';
+  	  	var pw='<c:out value="${pw}"/>';
+  	  	console.log("id:"+id+",  pw:"+pw);
   	  	var formObj = $("form[class='row']");
   		var submitBtn = $("button[type='submit']");
   		submitBtn.on("click", function(e){

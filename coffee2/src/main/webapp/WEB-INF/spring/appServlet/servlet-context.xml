@@ -58,5 +58,4 @@
 		<websocket:sockjs />
 	</websocket:handlers>
 	
-	<util:properties id="emailInfo" location="/WEB-INF/config/email.properties"></util:properties>
 </beans:beans>

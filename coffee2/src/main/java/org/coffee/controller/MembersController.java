@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+@Component
 @Controller
 @Log4j
 @RequestMapping("/members/*")
@@ -42,12 +44,6 @@ public class MembersController {
 	
 	private ProductsService productsService;
 	
-	@Value("#{emailInfo['email.username']}")
-	private String emailUsername;
-	
-	@Value("${emailInfo['email.password']}")
-	private String emailPassword;
-	
 	@GetMapping("/index")
 	public void index() {
 		
@@ -55,7 +51,7 @@ public class MembersController {
 	
 	@GetMapping(value="/register")
 	public void register() {
-		
+
 	}
 	
 	@PostMapping(value="/register")
@@ -67,8 +63,8 @@ public class MembersController {
 		//service.register(dto);
 		//return "redirect:/";
 		String host = "smtp.naver.com";
-		final String user=emailUsername;
-		final String password=emailPassword;
+		final String user="";
+		final String password="";
 		
 		String to_email = dto.getMemail();
 		
@@ -102,10 +98,8 @@ public class MembersController {
 		String AuthenticationKey = temp.toString();
 		
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-			String un = user;
-			String pwd = password;
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(un, pwd);
+				return new PasswordAuthentication(user, password);
 			}
 		});
 		
@@ -115,9 +109,9 @@ public class MembersController {
 			msg.setFrom(new InternetAddress(user, "IMSI"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
 
-			//硫붿씪 �젣紐�
+			//제목
 			msg.setSubject("안녕하세요  인증 메일입니다.");
-			//硫붿씪 �궡�슜
+			//내용
 			msg.setText("인증 번호 : " + temp);
 
 			Transport.send(msg);
@@ -268,8 +262,8 @@ public class MembersController {
 	@PostMapping("/findPwdPro")
 	public void findPwdPro(String mname, String mid, String memail, Model model) {
 		String host = "smtp.naver.com";
-		final String user="eprot@naver.com";
-		final String password="Ythfeb94!#";
+		final String user="";
+		final String password="";
 		
 		String to_email = memail;
 		
